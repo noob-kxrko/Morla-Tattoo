@@ -166,9 +166,9 @@
             border: 1px solid rgba(255, 255, 255, 0.12);
             box-shadow: var(--shadow-soft);
             backdrop-filter: blur(15px);
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
         
         .tattoo-card.fade-in {
@@ -711,27 +711,20 @@
             "fa41f4fe-f440-40f3-9c3d-eb8d1bf68f8c.JPG", "ffbafe47-c9b1-4567-bbd0-9afa95882728.JPG"
         ];
         
-        // Optimización: carga por lotes para mejor rendimiento
-        let currentIndex = 0;
-        const batchSize = 10;
-        
-        function loadBatch() {
+        // Optimización: carga instantánea de todas las imágenes
+        function loadAllImages() {
             const galleryContainer = document.querySelector('#galeria .grid');
             if (!galleryContainer) return;
             
-            const endIndex = Math.min(currentIndex + batchSize, imageNames.length);
-            const batch = imageNames.slice(currentIndex, endIndex);
-            
-            batch.forEach((name, idx) => {
-                const globalIdx = currentIndex + idx;
+            imageNames.forEach((name, idx) => {
                 const card = document.createElement('div');
                 card.className = 'tattoo-card';
                 
-                // Crear imagen directamente - más simple y confiable
+                // Crear imagen con carga instantánea
                 const img = document.createElement('img');
                 img.src = `Morla tattos/${name}`;
-                img.alt = `Trabajo de tatuaje - Morla Tattoo #${globalIdx+1}`;
-                img.loading = 'lazy';
+                img.alt = `Trabajo de tatuaje - Morla Tattoo #${idx+1}`;
+                // Sin lazy loading para carga instantánea
                 img.width = 400;
                 img.height = 340;
                 img.className = 'gallery-img';
@@ -740,27 +733,15 @@
                 galleryContainer.appendChild(card);
             });
             
-            currentIndex = endIndex;
-            
-            // Cargar siguiente batch si hay más imágenes
-            if (currentIndex < imageNames.length) {
-                requestAnimationFrame(() => {
-                    setTimeout(loadBatch, 100);
-                });
-            } else {
-                // Aplicar efectos cuando todo esté cargado
-                setTimeout(() => {
-                    observeCards();
-                    attachModalToCards();
-                }, 200);
-            }
+            // Aplicar efectos inmediatamente
+            attachModalToCards();
         }
         
         function buildGallery() {
             const galleryContainer = document.querySelector('#galeria .grid');
             if (!galleryContainer) return;
             galleryContainer.innerHTML = '';
-            loadBatch();
+            loadAllImages();
         }
         
         function attachModalToCards() {

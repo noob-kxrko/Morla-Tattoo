@@ -1,5 +1,6 @@
 /* Panel privado de citas – reutiliza las variables de styles.css */
 .admin-body { min-height: 100vh; }
+[hidden] { display: none !important; }
 .ad-login { min-height: 100svh; display: grid; place-items: center; padding: 20px; }
 .ad-login-card {
     width: min(420px, 100%); display: grid; gap: 14px; justify-items: stretch;
@@ -68,3 +69,12 @@
 .ad-note:focus { outline: none; border-color: var(--clr-red); }
 .ad-empty { text-align: center; color: var(--clr-muted); padding: 40px 0; }
 .ad-dl { position: absolute; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); }
+.ad-back-link { justify-self: center; color: var(--clr-muted); font-size: 0.82rem; text-decoration: underline; }
+.ad-viewer { z-index: 250; }
+.ad-viewer:not([hidden]) { opacity: 1; }
+
+@media (max-width: 640px) {
+    .ad-top-in { align-items: flex-start; flex-direction: column; padding-block: 12px; }
+    .ad-top-actions { width: 100%; flex-wrap: wrap; }
+    .ad-top-actions .ad-btn { flex: 1; }
+}

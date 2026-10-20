@@ -38,31 +38,20 @@
     <!-- Estilos propios -->
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="admin-body">
-
-    <!-- Acceso -->
-    <main id="loginView" class="ad-login">
-        <form id="loginForm" class="ad-login-card" novalidate>
-            <img src="icono/MorlaTatto.jpg" alt="" width="72" height="72" class="brand-logo ad-logo">
-            <h1 class="ad-title">Panel de citas</h1>
-            <p class="ad-sub">Acceso solo para Morla.</p>
-            <label class="bk-field">Correo
-                <input id="adEmail" type="email" autocomplete="username" required>
-            </label>
-            <label class="bk-field">Contraseña
-                <input id="adPass" type="password" autocomplete="current-password" required>
-            </label>
-            <p id="loginMsg" class="bk-msg" role="alert" hidden></p>
-            <button type="submit" class="btn-primary bk-submit" id="loginBtn">Entrar</button>
-        </form>
-    </main>
-
-    <!-- Panel -->
-    <div id="appView" hidden>
-        <header class="ad-top">
-            <div class="container ad-top-in">
-                <h1 class="ad-title ad-title--sm">Citas · Morla Tattoo</h1>
-                <div class="ad-top-actions">
+<body>
+    <header class="site-header" id="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="#inicio" aria-label="Morla Tattoo, inicio">
+                <img src="icono/MorlaTatto.jpg" alt="" width="56" height="56" class="brand-logo">
+                <span class="brand-name">Morla Tattoo</span>
+            </a>
+            <nav class="main-nav" aria-label="Navegación principal">
+                <a href="#inicio" class="nav-link">Inicio</a>
+                <a href="#citas" class="nav-link nav-link--promo">Citas</a>
+                <a href="#sobre-mi" class="nav-link">Sobre mí</a>
+                <a href="#galeria" class="nav-link">Galería</a>
+                <a href="#contacto" class="nav-link">Contacto</a>
+            </nav>
             <button class="hamburger"
                     id="hamburgerBtn"
                     aria-label="Abrir menú"
@@ -73,17 +62,12 @@
                 <span class="ham-bar"></span>
             </button>
         </div>
-
-        <!-- Menú móvil -->
-        <nav id="mobileMenu"
-             class="mobile-nav"
-             aria-label="Navegación móvil"
-             aria-hidden="true">
-            <a href="#inicio"   class="mobile-nav-link">Inicio</a>
-            <a href="#citas"    class="mobile-nav-link">Citas 2x1500</a>
+        <nav id="mobileMenu" class="mobile-nav" aria-label="Navegación móvil" aria-hidden="true">
+            <a href="#inicio" class="mobile-nav-link">Inicio</a>
+            <a href="#citas" class="mobile-nav-link">Citas 2x1500</a>
             <a href="#sobre-mi" class="mobile-nav-link">Sobre mí</a>
-            <a href="#galeria"  class="mobile-nav-link">Galería</a>
-            <a href="#redes"    class="mobile-nav-link">Redes</a>
+            <a href="#galeria" class="mobile-nav-link">Galería</a>
+            <a href="#redes" class="mobile-nav-link">Redes</a>
             <a href="#contacto" class="mobile-nav-link">Contacto</a>
         </nav>
     </header>
@@ -197,7 +181,7 @@
                 </div>
                 <div class="about-stats-col reveal reveal-delay-1" aria-label="Estadísticas">
                     <div class="stat-card">
-                        <span class="stat-number" data-target="90">0</span>
+                        <span class="stat-number" data-target="19">0</span>
                         <span class="stat-label">Obras en galería</span>
                     </div>
                     <div class="stat-card">
@@ -334,6 +318,7 @@
                 <a href="#inicio"   class="footer-link">Inicio</a>
                 <a href="#galeria"  class="footer-link">Galería</a>
                 <a href="#contacto" class="footer-link">Contacto</a>
+                <a href="admin.html" class="footer-link">Administrar</a>
             </nav>
             <p class="footer-copy">
                 &copy; <span id="footerYear"></span> Morla Tattoo · República Dominicana

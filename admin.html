@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Administrar citas · Morla Tattoo</title>
+    <link rel="icon" type="image/jpeg" href="icono/MorlaTatto.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+    <main id="loginView" class="ad-login">
+        <form id="loginForm" class="ad-login-card" novalidate>
+            <a href="index.html" aria-label="Volver al sitio Morla Tattoo">
+                <img src="icono/MorlaTatto.jpg" alt="Morla Tattoo" width="72" height="72" class="brand-logo ad-logo">
+            </a>
+            <h1 class="ad-title">Panel de citas</h1>
+            <p class="ad-sub">Acceso solo para Morla.</p>
+            <label class="bk-field">Correo
+                <input id="adEmail" type="email" autocomplete="username" required>
+            </label>
+            <label class="bk-field">Contraseña
+                <input id="adPass" type="password" autocomplete="current-password" required>
+            </label>
+            <p id="loginMsg" class="bk-msg" role="alert" hidden></p>
+            <button type="submit" class="btn-primary bk-submit" id="loginBtn">Entrar</button>
+            <a class="ad-back-link" href="index.html">Volver al sitio público</a>
+        </form>
+    </main>
+
+    <div id="appView" hidden>
+        <header class="ad-top">
+            <div class="container ad-top-in">
+                <h1 class="ad-title ad-title--sm">Citas · Morla Tattoo</h1>
+                <div class="ad-top-actions">
+                    <a class="btn-secondary ad-btn" href="index.html">Ver sitio</a>
+                    <button class="btn-secondary ad-btn" id="refreshBtn" type="button">Actualizar</button>
+                    <button class="btn-secondary ad-btn" id="copyBtn" type="button">Copiar agenda</button>
+                    <button class="btn-secondary ad-btn" id="logoutBtn" type="button">Cerrar sesión</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="container ad-main">
+            <p id="adMsg" class="bk-msg" role="status" hidden></p>
+            <section id="stats" class="ad-stats" aria-label="Resumen de citas"></section>
+
+            <div class="ad-toolbar">
+                <label class="ad-filter">Día
+                    <select id="fDay">
+                        <option value="todos">Todos los días</option>
+                    </select>
+                </label>
+                <label class="ad-filter">Estado
+                    <select id="fEstado">
+                        <option value="todas">Todos</option>
+                        <option value="activas">Activas</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="aprobada">Aprobada</option>
+                        <option value="cambios">Piden cambios</option>
+                        <option value="rechazada">Rechazada</option>
+                        <option value="completada">Completada</option>
+                        <option value="cancelada">Cancelada</option>
+                        <option value="bloqueada">Bloqueada</option>
+                    </select>
+                </label>
+            </div>
+
+            <details class="ad-block">
+                <summary>Bloquear una hora</summary>
+                <div class="ad-block-row">
+                    <label class="ad-filter">Día
+                        <select id="bDay"></select>
+                    </label>
+                    <label class="ad-filter">Hora
+                        <select id="bHour"></select>
+                    </label>
+                    <button id="blockBtn" class="btn-secondary ad-btn" type="button">Bloquear</button>
+                </div>
+            </details>
+
+            <section id="list" class="ad-list" aria-label="Citas registradas"></section>
+        </main>
+    </div>
+
+    <div id="viewer" class="modal ad-viewer" role="dialog" aria-modal="true" aria-label="Diseño del cliente" hidden>
+        <button id="viewerClose" class="modal-close" type="button" aria-label="Cerrar diseño">
+            <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+        <img id="viewerImg" class="modal-img" src="" alt="Diseño enviado para la cita">
+        <a id="viewerDl" class="btn-primary ad-dl" href="" target="_blank" rel="noopener noreferrer" download>Descargar diseño</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="admin.js" defer></script>
+</body>
+</html>

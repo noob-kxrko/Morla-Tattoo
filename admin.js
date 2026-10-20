@@ -84,7 +84,14 @@
             if (signedError) flash('No se pudieron cargar los diseños: ' + signedError.message, true);
             (signed || []).forEach(s => { if (s.signedUrl) urls[s.path] = s.signedUrl; });
         }
-        fillFilters(); render();
+        try {
+            fillFilters();
+            render();
+        } catch (renderError) {
+            console.error('No se pudieron mostrar las citas del panel.', renderError);
+            $('list').innerHTML = '<p class="ad-empty">No se pudieron mostrar las citas. Pulsa Actualizar o revisa la consola del navegador.</p>';
+            flash('Las citas se cargaron, pero hubo un error al mostrarlas: ' + renderError.message, true);
+        }
     }
 
     function fillFilters() {

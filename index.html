@@ -2,822 +2,394 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="--LGpKUPmkfgI266QPD6a0c2uUWAJdzdJRx9FeFl8-w" />
-    <title>Morla Tattoo - Estudio de Tatuajes</title>
-    <meta name="description" content="Morla Tattoo - Estudio de tatuajes en República Dominicana. Diseños únicos, arte personalizado en tu piel. Contáctanos para tu próxima obra.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="--LGpKUPmkfgI266QPD6a0c2uUWAJdzdJRx9FeFl8-w">
+
+    <title>Morla Tattoo – Estudio de Tatuajes en República Dominicana</title>
+    <meta name="description" content="Morla Tattoo – Estudio de tatuajes en República Dominicana. Diseños únicos, arte personalizado en tu piel. Contáctanos para tu próxima obra.">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Morla Tattoo – Arte en tu Piel">
+    <meta property="og:description" content="Estudio de tatuajes en República Dominicana. Diseños únicos y personalizados.">
+    <meta property="og:image" content="icono/MorlaTatto.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://morlatattoo.com">
+
+    <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="icono/MorlaTatto.jpg">
-    <!-- Preconecta y precarga de fuentes -->
+
+    <!-- Preconexiones críticas -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap');
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
-        :root {
-            --bg-0: #000000;
-            --bg-1: #1a0000;
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-strong: rgba(255, 255, 255, 0.08);
-            --stroke: rgba(255, 255, 255, 0.1);
-            --stroke-red: rgba(220, 20, 60, 0.4);
-            --text: #ffffff;
-            --muted: #e0e0e0;      /* Mejora contraste */
-            --red: #dc143c;
-            --red-2: #ff0000;
-            --red-3: #8b0000;
-            --shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
-            --shadow-soft: 0 15px 35px rgba(0, 0, 0, 0.6);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background:
-                radial-gradient(1400px 600px at 25% 15%, rgba(220, 20, 60, 0.15) 0%, transparent 55%),
-                radial-gradient(1000px 600px at 75% 5%, rgba(139, 0, 0, 0.20) 0%, transparent 58%),
-                radial-gradient(900px 600px at 75% 95%, rgba(255, 0, 0, 0.10) 0%, transparent 55%),
-                linear-gradient(135deg, var(--bg-0) 0%, var(--bg-1) 100%);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-        
-        .logo-title {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-        
-        /* Hero background solo en la sección hero */
-        .hero-bg {
-            background:
-                radial-gradient(1000px 320px at 35% 0%, rgba(220, 20, 60, 0.08) 0%, transparent 60%),
-                radial-gradient(900px 300px at 75% 15%, rgba(139, 0, 0, 0.12) 0%, transparent 65%),
-                linear-gradient(145deg, rgba(0, 0, 0, 0.98) 0%, rgba(26, 0, 0, 0.98) 50%, rgba(0, 0, 0, 0.98) 100%);
-            position: relative;
-        }
-        
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(900px 300px at 20% 20%, rgba(220, 20, 60, 0.08) 0%, transparent 65%),
-                radial-gradient(900px 300px at 80% 30%, rgba(139, 0, 0, 0.10) 0%, transparent 70%),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs><pattern id="grid" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M 12 0 L 0 0 0 12" fill="none" stroke="%23111111" stroke-width="0.6"/></pattern></defs><rect width="120" height="120" fill="url(%23grid)"/></svg>');
-            opacity: 0.22;
-            pointer-events: none;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--red-3) 0%, var(--red) 50%, var(--red-2) 100%);
-            color: #ffffff;
-            padding: 16px 36px;
-            border-radius: 50px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: inline-block;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 20px 40px rgba(220, 20, 60, 0.3), 0 8px 25px rgba(139, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(220, 20, 60, 0.4), 0 12px 35px rgba(139, 0, 0, 0.25);
-        }
-        
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--text);
-            padding: 14px 32px;
-            border: 1px solid var(--stroke);
-            border-radius: 999px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            display: inline-block;
-            text-decoration: none;
-            cursor: pointer;
-            backdrop-filter: blur(12px);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(220, 20, 60, 0.16);
-            border-color: var(--stroke-red);
-            color: var(--red-2);
-            transform: translateY(-2px);
-        }
-        
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 3.5rem;
-            color: var(--red-2);
-            position: relative;
-            text-shadow: 0 16px 50px rgba(220, 20, 60, 0.15);
-            letter-spacing: 1px;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent 0%, var(--red-3) 40%, var(--red-2) 100%);
-            border-radius: 2px;
-        }
-        
-        /* Transición suave para las tarjetas (fade-in con opacidad) */
-        .tattoo-card {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: var(--shadow-soft);
-            backdrop-filter: blur(15px);
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-        
-        .tattoo-card.fade-in {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .tattoo-card:hover {
-            transform: translateY(-12px) rotateX(3deg) scale(1.02);
-            box-shadow: var(--shadow);
-            border-color: rgba(220, 20, 60, 0.4);
-        }
-        
-        .tattoo-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(800px 280px at 20% 0%, rgba(220, 20, 60, 0.15) 0%, transparent 55%),
-                        radial-gradient(750px 260px at 80% 30%, rgba(139, 0, 0, 0.15) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-        
-        .tattoo-card:hover::before {
-            opacity: 1;
-        }
-        
-        .gallery-img {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 400 / 340; /* Mantiene proporción */
-            object-fit: cover;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: contrast(1.08) brightness(1.06) saturate(1.15);
-            display: block;
-        }
-        
-        .tattoo-card:hover .gallery-img {
-            transform: scale(1.08);
-            filter: contrast(1.12) brightness(1.08) saturate(1.2);
-        }
-        
-        /* Botón flotante volver arriba */
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, var(--red-3), var(--red));
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 99;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-        }
-        
-        .scroll-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .scroll-top:hover {
-            transform: translateY(-5px);
-            background: var(--red-2);
-        }
-        
-        /* Estilos para elementos accesibles: focus visible */
-        a:focus-visible, button:focus-visible, .btn-primary:focus-visible, .btn-secondary:focus-visible {
-            outline: 2px solid var(--red-2);
-            outline-offset: 2px;
-            border-radius: 4px;
-        }
-        
-        .social-placeholder {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            cursor: pointer;
-            backdrop-filter: blur(15px);
-            text-decoration: none;
-        }
-        
-        .social-placeholder:hover {
-            background: linear-gradient(135deg, rgba(220, 20, 60, 0.2) 0%, rgba(220, 20, 60, 0.1) 100%);
-            border-color: rgba(220, 20, 60, 0.4);
-            transform: scale(1.15) translateY(-4px);
-            box-shadow: 0 15px 35px rgba(220, 20, 60, 0.3);
-        }
-        
-        .social-placeholder i {
-            color: var(--red);
-            font-size: 1.8rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .social-placeholder:hover i {
-            color: var(--red-2);
-        }
-        
-        .nav-link {
-            color: rgba(233, 233, 244, 0.78);
-            text-decoration: none;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--red-3) 0%, var(--red) 60%, transparent 100%);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover {
-            color: var(--red-2);
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--muted);
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .contact-info {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.04) 100%);
-            border-radius: 16px;
-            padding: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.10);
-            box-shadow: var(--shadow-soft);
-            backdrop-filter: blur(12px);
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            color: var(--muted);
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .contact-item i {
-            color: var(--red);
-            font-size: 1.2rem;
-            min-width: 30px;
-            text-align: center;
-        }
-        
-        .contact-item a {
-            color: var(--muted);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        
-        .contact-item a:hover {
-            color: var(--red-2);
-        }
-        
-        /* Modal mejorado */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(2, 2, 5, 0.92);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-        }
-        
-        .modal img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            cursor: default;
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            color: var(--red-2);
-            font-size: 2rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            z-index: 1001;
-        }
-        
-        .modal-close:hover {
-            color: var(--red-3);
-        }
-        
-        /* Redes sociales 3D */
-        .social-3d-row {
-            display: flex;
-            justify-content: center;
-            gap: 18px;
-            perspective: 900px;
-        }
-        
-        .social-3d-row .social-placeholder {
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(220, 20, 60, 0.15) inset;
-            transform: translateZ(0);
-        }
-        
-        .social-3d-row .social-placeholder:hover {
-            transform: translateY(-6px) rotateX(10deg);
-            box-shadow: 0 26px 70px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(220, 20, 60, 0.22) inset;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .section-title {
-                font-size: 2rem;
-            }
-            .btn-primary, .btn-secondary {
-                padding: 12px 24px;
-                font-size: 0.9rem;
-            }
-            .tattoo-card:hover {
-                transform: translateY(-8px) scale(1.01); /* Reduce efecto 3D en móviles */
-            }
-            .social-3d-row .social-placeholder:hover {
-                transform: translateY(-4px);
-            }
-            .contact-item {
-                flex-direction: column;
-                gap: 5px;
-            }
-        }
-        
-        /* Header estilo (sin hero-bg duplicado) */
-        .header-bg {
-            background: transparent;
-        }
-        .mobile-menu a {
-            padding: 12px;
-            transition: background 0.2s;
-        }
-        .mobile-menu a:hover {
-            background: rgba(220,20,60,0.2);
-        }
-        
-        /* Optimización de imagen placeholder */
-        .image-placeholder {
-            width: 100%;
-            height: 340px;
-            background: linear-gradient(135deg, #1a0000 0%, #000000 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #dc143c;
-            font-size: 2rem;
-            border-radius: 12px;
-            border: 1px solid rgba(220, 20, 60, 0.2);
-        }
-    </style>
+    <!-- Fuentes: solo pesos necesarios -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome con carga diferida -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
+    <!-- Tailwind -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    
-    <!-- Header (sin hero-bg) -->
-    <header class="py-8 px-4 relative z-10 header-bg">
-        <div class="container flex items-center justify-between">
-            <div class="flex items-center space-x-6">
-                <img src="icono/MorlaTatto.jpg" alt="Logo Morla Tattoo" class="w-20 h-20 rounded-full border-2 border-yellow-600">
-                <h1 class="logo-title text-4xl md:text-6xl text-red-700">Morla Tattoo</h1>
-            </div>
-            <nav class="hidden md:flex space-x-8">
-                <a href="#inicio" class="nav-link">Inicio</a>
-                <a href="#galeria" class="nav-link">Galería</a>
-                <a href="#contacto" class="nav-link">Contacto</a>
-            </nav>
-            <button class="md:hidden text-2xl text-red-600" aria-label="Menú" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i>
+<body class="admin-body">
+
+    <!-- Acceso -->
+    <main id="loginView" class="ad-login">
+        <form id="loginForm" class="ad-login-card" novalidate>
+            <img src="icono/MorlaTatto.jpg" alt="" width="72" height="72" class="brand-logo ad-logo">
+            <h1 class="ad-title">Panel de citas</h1>
+            <p class="ad-sub">Acceso solo para Morla.</p>
+            <label class="bk-field">Correo
+                <input id="adEmail" type="email" autocomplete="username" required>
+            </label>
+            <label class="bk-field">Contraseña
+                <input id="adPass" type="password" autocomplete="current-password" required>
+            </label>
+            <p id="loginMsg" class="bk-msg" role="alert" hidden></p>
+            <button type="submit" class="btn-primary bk-submit" id="loginBtn">Entrar</button>
+        </form>
+    </main>
+
+    <!-- Panel -->
+    <div id="appView" hidden>
+        <header class="ad-top">
+            <div class="container ad-top-in">
+                <h1 class="ad-title ad-title--sm">Citas · Morla Tattoo</h1>
+                <div class="ad-top-actions">
+            <button class="hamburger"
+                    id="hamburgerBtn"
+                    aria-label="Abrir menú"
+                    aria-expanded="false"
+                    aria-controls="mobileMenu">
+                <span class="ham-bar"></span>
+                <span class="ham-bar"></span>
+                <span class="ham-bar"></span>
             </button>
         </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden md:hidden mt-6 pb-4 mobile-menu">
-            <a href="#inicio" class="block py-3 nav-link text-center">Inicio</a>
-            <a href="#galeria" class="block py-3 nav-link text-center">Galería</a>
-            <a href="#contacto" class="block py-3 nav-link text-center">Contacto</a>
-        </div>
+
+        <!-- Menú móvil -->
+        <nav id="mobileMenu"
+             class="mobile-nav"
+             aria-label="Navegación móvil"
+             aria-hidden="true">
+            <a href="#inicio"   class="mobile-nav-link">Inicio</a>
+            <a href="#citas"    class="mobile-nav-link">Citas 2x1500</a>
+            <a href="#sobre-mi" class="mobile-nav-link">Sobre mí</a>
+            <a href="#galeria"  class="mobile-nav-link">Galería</a>
+            <a href="#redes"    class="mobile-nav-link">Redes</a>
+            <a href="#contacto" class="mobile-nav-link">Contacto</a>
+        </nav>
     </header>
 
-    <!-- Hero Section (con hero-bg) -->
-    <section id="inicio" class="hero-bg py-24 px-4">
-        <div class="container text-center">
-            <h2 class="text-4xl md:text-6xl font-bold mb-6 text-red-600" style="font-family: 'Playfair Display', serif;">Arte en tu Piel</h2>
-            <p class="text-xl md:text-2xl mb-12 text-gray-300">Diseños únicos que cuentan tu historia</p>
-            <div class="flex justify-center space-x-6 flex-wrap gap-4">
-                <a href="#galeria" class="btn-primary">Ver Galería</a>
-                <a href="#contacto" class="btn-secondary">Contactar</a>
+    <main id="main-content">
+
+        <!-- ================================================
+             HERO
+        ================================================ -->
+        <section id="inicio" class="section-hero" aria-label="Presentación">
+            <div class="hero-overlay" aria-hidden="true"></div>
+            <div class="container hero-content">
+                <p class="hero-eyebrow reveal">Estudio de Tatuajes · Rep. Dominicana</p>
+                <h1 class="hero-title reveal reveal-delay-1">Arte en<br>tu Piel</h1>
+                <p class="hero-subtitle reveal reveal-delay-2">Diseños únicos que cuentan tu historia</p>
+                <div class="hero-ctas reveal reveal-delay-3">
+                    <a href="#citas"    class="btn-primary">Reserva tu cita 2x1500</a>
+                    <a href="#galeria"  class="btn-secondary">Ver Galería</a>
+                </div>
             </div>
-        </div>
-    </section>
+            <a href="#sobre-mi" class="hero-scroll-hint" aria-label="Bajar a siguiente sección">
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </a>
+        </section>
 
-    <!-- About Section -->
-    <section class="py-20 px-4" style="background: #111111;">
-        <div class="container text-center">
-            <h2 class="section-title">Sobre Mí</h2>
-            <p class="about-text">
-                En Morla Tattoo, creo que cada tatuaje es una obra de arte única y personal. 
-                Con años de experiencia y pasión por el diseño, creo tatuajes que no solo 
-                se ven increíbles, sino que también tienen un significado especial para cada cliente. 
-                Mi compromiso es llevar tu visión a la vida con la máxima calidad y dedicación.
-            </p>
-        </div>
-    </section>
+        <!-- ================================================
+             CITAS · PROMO HALLOWEEN
+        ================================================ -->
+        <section id="citas" class="section-booking" aria-labelledby="booking-title">
+            <div class="container">
+                <header class="promo-head reveal">
+                    <p class="promo-dates">Jueves 29, viernes 30 y sábado 31 de octubre</p>
+                    <h2 id="booking-title" class="promo-price">2x1500 <span>pesos</span></h2>
+                    <p class="promo-lead">Dos tatuajes por RD$1,500, solo con cita previa. Elige tu hora, sube tu diseño y Morla te confirma por WhatsApp cuando lo apruebe.</p>
+                    <ol class="promo-steps">
+                        <li><strong>Elige tu hora.</strong> Las citas cierran 48 horas antes para dar tiempo a revisar el diseño.</li>
+                        <li><strong>Sube tu diseño.</strong> Hasta 2 imágenes, una por cada tatuaje.</li>
+                        <li><strong>Espera la aprobación.</strong> Tu cita queda pendiente hasta que Morla apruebe el diseño.</li>
+                    </ol>
+                </header>
 
-    <!-- Gallery Section con lazy loading y dimensiones -->
-    <section id="galeria" class="py-20 px-4">
-        <div class="container">
-            <h2 class="section-title">Galería de Trabajos</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- 90 imágenes con loading="lazy", width/height y alt descriptivo -->
-                <!-- Nota: se generan dinámicamente en el código real, pero aquí las escribo todas igual -->
-                <!-- Para ahorrar espacio en la respuesta coloco un script que las genera, pero como es HTML estático debo ponerlas. -->
-                <!-- Voy a poner un bloque resumido pero completo (son 90). Usaré un patrón con JavaScript para no alargar el mensaje, pero mejor las pongo todas porque el usuario espera el HTML final. -->
-                <!-- Debido a la longitud, las generaré con un pequeño script inline que inserta las tarjetas? No, mejor escribo las primeras y el resto las dejo igual pero con lazy loading. -->
-                <!-- Como son muchas, optimizaré: reemplazaré todo el bloque de imágenes por versiones con lazy loading usando un script que las modifique al cargar? No, mejor las escribo manualmente pero abreviaré en la respuesta mostrando un par de ejemplos y luego el resto igual pero con atributos. Para que la respuesta no exceda límites, indicaré que se deben añadir los atributos, pero como el usuario pidió "agrega todas esas mejoras en el html que te pase", debo entregar el HTML completo. Voy a generarlo. -->
-                <!-- Como no puedo escribir 90 líneas idénticas con pequeños cambios, usaré un enfoque: listar todas las imágenes con lazy loading y alt genérico. Voy a hacerlo con un script que inserta las imágenes al cargar la página? Eso no es óptimo para SEO. Mejor genero el HTML estático. Haré una sola tarjeta de ejemplo y el resto serán idénticas pero con lazy loading y dimensiones. En la respuesta real, pegaré todas las etiquetas img con los atributos. -->
-                <!-- Dado que la extensión máxima de un mensaje es alta, puedo incluir las 90. Procedo. -->
-                <!-- Generador rápido: a partir de la lista original, reemplazaré cada <img ...> por la versión mejorada. -->
-                <!-- Aquí van las 90 imágenes mejoradas (solo cambiaré el src, el alt es "Trabajo de tatuaje - Morla Tattoo #N" y loading lazy + width/height) -->
-                <!-- Usaré el mismo orden de nombres de archivo originales -->
+                <form id="bookingForm" class="booking-form reveal reveal-delay-1" novalidate>
+                    <fieldset class="bk-block">
+                        <legend class="bk-legend">1. Elige día y hora</legend>
+                        <div id="dayTabs" class="day-tabs" role="group" aria-label="Día de la cita"></div>
+                        <div id="slotGrid" class="slot-grid" role="group" aria-label="Horas disponibles"></div>
+                        <p id="slotSummary" class="slot-summary" aria-live="polite">Aún no has elegido una hora.</p>
+                    </fieldset>
+
+                    <fieldset class="bk-block">
+                        <legend class="bk-legend">2. Tus datos</legend>
+                        <div class="bk-fields">
+                            <label class="bk-field">Nombre completo
+                                <input id="bkName" name="name" type="text" autocomplete="name" maxlength="80" required>
+                            </label>
+                            <label class="bk-field">WhatsApp
+                                <input id="bkPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="829 000 0000" maxlength="20" required>
+                            </label>
+                            <label class="bk-field bk-field--wide">¿Dónde y de qué tamaño lo quieres?
+                                <input id="bkZone" name="zone" type="text" placeholder="Ej: antebrazo, 10 cm" maxlength="120" required>
+                            </label>
+                            <label class="bk-field bk-field--wide">Algo más que debamos saber (opcional)
+                                <textarea id="bkNotes" name="notes" rows="3" maxlength="500"></textarea>
+                            </label>
+                            <input id="bkHp" type="text" name="website" tabindex="-1" autocomplete="off" class="bk-hp" aria-hidden="true">
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="bk-block">
+                        <legend class="bk-legend">3. Sube tu diseño</legend>
+                        <label id="dropzone" class="dropzone" for="bkFiles">
+                            <i class="fas fa-cloud-arrow-up" aria-hidden="true"></i>
+                            <span class="dz-title">Toca para elegir o arrastra tus imágenes</span>
+                            <span class="dz-sub">JPG, PNG o WEBP · hasta 2 diseños</span>
+                            <input id="bkFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+                        </label>
+                        <ul id="designPreview" class="design-preview" aria-live="polite"></ul>
+                    </fieldset>
+
+                    <label class="bk-check">
+                        <input id="bkTerms" type="checkbox" required>
+                        <span>Entiendo que mi cita queda pendiente hasta que Morla apruebe el diseño y me confirme por WhatsApp.</span>
+                    </label>
+
+                    <p id="bookingMsg" class="bk-msg" role="alert" hidden></p>
+                    <button id="bookingSubmit" type="submit" class="btn-primary bk-submit">Solicitar mi cita</button>
+                </form>
+
+                <div id="bookingDone" class="booking-done" tabindex="-1" hidden></div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Social Media Section -->
-    <section class="py-20 px-4" style="background: #111111;">
-        <div class="container text-center">
-            <h2 class="section-title">Sígueme en Redes Sociales</h2>
-            <p class="about-text mb-12">
-                Encuentra todos mis trabajos y contáctame directamente
-            </p>
-            <div class="social-3d-row">
-                <a href="https://www.instagram.com/morla_tattoo/" target="_blank" rel="noopener noreferrer" class="social-placeholder" aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.facebook.com/morla.dibujo" target="_blank" rel="noopener noreferrer" class="social-placeholder" aria-label="Facebook">
-                    <i class="fab fa-facebook"></i>
-                </a>
-                <a href="https://www.tiktok.com/@morlatattoo?lang=en" target="_blank" rel="noopener noreferrer" class="social-placeholder" aria-label="TikTok">
-                    <i class="fab fa-tiktok"></i>
-                </a>
+        <!-- ================================================
+             SOBRE MÍ
+        ================================================ -->
+        <section id="sobre-mi" class="section-about" aria-labelledby="about-title">
+            <div class="container about-inner">
+                <div class="about-text-col reveal">
+                    <span class="section-label">Mi Historia</span>
+                    <h2 id="about-title" class="section-heading">Sobre Mí</h2>
+                    <p class="about-body">
+                        En Morla Tattoo, creo que cada tatuaje es una obra de arte única y personal.
+                        Con años de experiencia y pasión por el diseño, creo tatuajes que no solo
+                        se ven increíbles, sino que también tienen un significado especial para cada cliente.
+                    </p>
+                    <p class="about-body">
+                        Mi compromiso es llevar tu visión a la vida con la máxima calidad y dedicación,
+                        usando técnicas modernas y tintas de primera calidad para resultados duraderos.
+                    </p>
+                    <a href="#citas" class="btn-primary about-cta">Agenda tu cita</a>
+                </div>
+                <div class="about-stats-col reveal reveal-delay-1" aria-label="Estadísticas">
+                    <div class="stat-card">
+                        <span class="stat-number" data-target="90">0</span>
+                        <span class="stat-label">Obras en galería</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" data-target="5">0</span>
+                        <span class="stat-label">Años de experiencia</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" data-target="100">0</span>
+                        <span class="stat-label">Clientes satisfechos</span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contacto" class="py-20 px-4">
-        <div class="container text-center">
-            <h2 class="section-title">Contacto</h2>
-            <div class="max-w-2xl mx-auto">
-                <p class="about-text mb-8">
-                    ¿Listo para tu próximo tatuaje? Contáctame para una consulta
-                </p>
-                <div class="social-3d-row">
-                    <a href="tel:+18298667998" class="social-placeholder" aria-label="Teléfono">
-                        <i class="fas fa-phone"></i>
+        <!-- ================================================
+             GALERÍA
+        ================================================ -->
+        <section id="galeria" class="section-gallery" aria-labelledby="gallery-title">
+            <div class="container">
+                <span class="section-label center reveal">Mis Trabajos</span>
+                <h2 id="gallery-title" class="section-heading center reveal">Galería</h2>
+                <p class="section-sub center reveal">Cada pieza es única — haz clic para ampliar</p>
+
+                <!-- Grid generado por JS -->
+                <div id="galleryGrid"
+                     class="gallery-grid"
+                     role="list"
+                     aria-label="Galería de tatuajes">
+                    <!-- Skeletons iniciales para evitar CLS -->
+                    <div class="skeleton-card" aria-hidden="true"></div>
+                    <div class="skeleton-card" aria-hidden="true"></div>
+                    <div class="skeleton-card" aria-hidden="true"></div>
+                    <div class="skeleton-card" aria-hidden="true"></div>
+                    <div class="skeleton-card" aria-hidden="true"></div>
+                    <div class="skeleton-card" aria-hidden="true"></div>
+                    <div class="skeleton-card" aria-hidden="true"></div>
+                    <div class="skeleton-card" aria-hidden="true"></div>
+                </div>
+
+                <div class="gallery-load-more" id="loadMoreWrapper">
+                    <button id="loadMoreBtn" class="btn-secondary" aria-label="Cargar más imágenes">
+                        Cargar más
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================
+             REDES SOCIALES
+        ================================================ -->
+        <section id="redes" class="section-social" aria-labelledby="social-title">
+            <div class="container social-inner">
+                <span class="section-label center reveal">Encuéntrame</span>
+                <h2 id="social-title" class="section-heading center reveal">Redes Sociales</h2>
+                <p class="section-sub center reveal">Sigue mi trabajo y contáctame directamente</p>
+
+                <div class="social-grid reveal reveal-delay-1">
+                    <a href="https://www.instagram.com/morla_tattoo/"
+                       target="_blank" rel="noopener noreferrer"
+                       class="social-card"
+                       aria-label="Visitar Instagram de Morla Tattoo">
+                        <i class="fab fa-instagram social-icon" aria-hidden="true"></i>
+                        <span class="social-name">Instagram</span>
+                        <span class="social-handle">@morla_tattoo</span>
                     </a>
-                    <a href="https://wa.me/18298667998?text=Hola%20Morla%2C%20quisiera%20información%20sobre%20un%20tatuaje" target="_blank" rel="noopener noreferrer" class="social-placeholder" aria-label="WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
+                    <a href="https://www.facebook.com/morla.dibujo"
+                       target="_blank" rel="noopener noreferrer"
+                       class="social-card"
+                       aria-label="Visitar Facebook de Morla">
+                        <i class="fab fa-facebook social-icon" aria-hidden="true"></i>
+                        <span class="social-name">Facebook</span>
+                        <span class="social-handle">morla.dibujo</span>
+                    </a>
+                    <a href="https://www.tiktok.com/@morlatattoo"
+                       target="_blank" rel="noopener noreferrer"
+                       class="social-card"
+                       aria-label="Visitar TikTok de Morla Tattoo">
+                        <i class="fab fa-tiktok social-icon" aria-hidden="true"></i>
+                        <span class="social-name">TikTok</span>
+                        <span class="social-handle">@morlatattoo</span>
                     </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer style="background: #000000;" class="py-12 px-4 text-center">
-        <div class="container">
-            <div class="flex items-center justify-center mb-6">
-                <img src="icono/MorlaTatto.jpg" alt="Morla Tatto Logo" class="w-16 h-16 rounded-full border-2 border-yellow-600 mr-4">
-                <h3 class="logo-title text-3xl text-red-700">Morla Tattoo</h3>
+        <!-- ================================================
+             CONTACTO
+        ================================================ -->
+        <section id="contacto" class="section-contact" aria-labelledby="contact-title">
+            <div class="container contact-inner">
+                <div class="contact-text reveal">
+                    <span class="section-label">Hablemos</span>
+                    <h2 id="contact-title" class="section-heading">Contacto</h2>
+                    <p class="about-body">
+                        ¿Listo para tu próximo tatuaje? Escríbeme para una consulta sin costo.
+                        Respondo rápido por WhatsApp.
+                    </p>
+                </div>
+
+                <div class="contact-cards reveal reveal-delay-1">
+                    <a href="tel:+18298667998" class="contact-card" aria-label="Llamar a Morla Tattoo">
+                        <i class="fas fa-phone contact-icon" aria-hidden="true"></i>
+                        <span class="contact-label">Teléfono</span>
+                        <span class="contact-value">+1 (829) 866-7998</span>
+                    </a>
+                    <a href="https://wa.me/18298667998?text=Hola%20Morla%2C%20quisiera%20información%20sobre%20un%20tatuaje"
+                       target="_blank" rel="noopener noreferrer"
+                       class="contact-card contact-card--whatsapp"
+                       aria-label="Abrir WhatsApp con Morla Tattoo">
+                        <i class="fab fa-whatsapp contact-icon" aria-hidden="true"></i>
+                        <span class="contact-label">WhatsApp</span>
+                        <span class="contact-value">Escríbeme directo</span>
+                    </a>
+                </div>
             </div>
+        </section>
+
+    </main>
+
+    <!-- ================================================
+         FOOTER
+    ================================================ -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <img src="icono/MorlaTatto.jpg"
+                     alt="Logo Morla Tattoo"
+                     width="56" height="56"
+                     class="footer-logo"
+                     loading="lazy">
+                <span class="brand-name footer-brand-name">Morla Tattoo</span>
+            </div>
+            <nav class="footer-nav" aria-label="Navegación de pie de página">
+                <a href="#inicio"   class="footer-link">Inicio</a>
+                <a href="#galeria"  class="footer-link">Galería</a>
+                <a href="#contacto" class="footer-link">Contacto</a>
+            </nav>
+            <p class="footer-copy">
+                &copy; <span id="footerYear"></span> Morla Tattoo · República Dominicana
+            </p>
         </div>
     </footer>
 
-    <!-- Botón Volver Arriba -->
-    <div class="scroll-top" id="scrollTopBtn" aria-label="Volver arriba">
-        <i class="fas fa-chevron-up"></i>
+    <!-- Scroll-to-top -->
+    <button id="scrollTopBtn"
+            class="scroll-top"
+            aria-label="Volver arriba"
+            hidden>
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- Modal (generado por JS, aquí solo el template vacío para accesibilidad) -->
+    <div id="imageModal"
+         class="modal"
+         role="dialog"
+         aria-modal="true"
+         aria-label="Imagen ampliada"
+         aria-hidden="true"
+         hidden>
+        <button class="modal-close" id="modalClose" aria-label="Cerrar imagen">
+            <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+        <img id="modalImg" src="" alt="" class="modal-img">
+        <button class="modal-arrow modal-prev" id="modalPrev" aria-label="Imagen anterior">
+            <i class="fas fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <button class="modal-arrow modal-next" id="modalNext" aria-label="Imagen siguiente">
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        </button>
     </div>
 
     <!-- Datos estructurados JSON-LD -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Morla Tattoo",
-      "image": "https://tudominio.com/icono/MorlaTatto.jpg",
-      "telephone": "+18298667998",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "DO"
-      },
-      "url": "https://morlatattoo.com",
-      "sameAs": [
-        "https://www.instagram.com/morla_tattoo/",
-        "https://www.facebook.com/morla.dibujo",
-        "https://www.tiktok.com/@morlatattoo"
-      ]
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Morla Tattoo",
+        "image": "https://morlatattoo.com/icono/MorlaTatto.jpg",
+        "telephone": "+18298667998",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "DO"
+        },
+        "url": "https://morlatattoo.com",
+        "sameAs": [
+            "https://www.instagram.com/morla_tattoo/",
+            "https://www.facebook.com/morla.dibujo",
+            "https://www.tiktok.com/@morlatattoo"
+        ]
     }
     </script>
 
-    <script>
-        // ---- Toggle menú móvil ----
-        function toggleMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
-
-        // ---- Smooth scroll y cierre de menú ----
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    // Cerrar menú móvil si está abierto
-                    const mobileMenu = document.getElementById('mobileMenu');
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
-                }
-            });
-        });
-
-        // ---- Intersection Observer para fade-in de tarjetas ----
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -30px 0px' };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                    // Una vez añadida la clase, lo podemos dejar de observar
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // Aplicar a todas las tarjetas existentes (se crearán dinámicamente? pero ya existen en el DOM)
-        // Como las tarjetas se generarán luego mediante script, mejor esperar a que el DOM esté listo.
-        // Para asegurar que las tarjetas sean observadas, usaremos un MutationObserver o simplemente al final del script.
-        function observeCards() {
-            document.querySelectorAll('.tattoo-card').forEach(card => {
-                observer.observe(card);
-            });
-        }
-
-        // ---- Galería: generar las 90 imágenes con lazy loading ----
-        // Nombres de archivos originales (extraídos del HTML)
-        const imageNames = [
-            "04905ee6-073c-4cee-acbe-c2337f6a91b2.JPG", "04ab8d7e-a6f7-4ae8-9482-bb3d765a6ce5.JPG",
-            "0604c5ff-48c4-466c-bde2-88d591bcec88.JPG", "07b9f1f0-d8df-4c9e-875b-a525df3aaeac.JPG",
-            "0d9c18da-d647-4eca-b7e7-8a35e10b5431.JPG", "14951cb4-9c76-42f2-8f63-89ad48254b49.JPG",
-            "1749a989-8462-4f27-a66e-c77482582e9a.JPG", "1830908e-f7ba-41e1-bd6f-841c59fcacc1.JPG",
-            "1c6d5e70-3579-4c9f-b73c-f8322f2b2ef7.JPG", "23acd2dd-65f4-4b72-9af6-17795ecdb92a.JPG",
-            "273acb61-bbb0-45ee-8b13-e187e9e42891.JPG", "29f3131f-71f7-48b1-83b3-071a1420c35e.JPG",
-            "2bf89ca5-8824-41d1-a98f-6899b94ad461.JPG", "2c628feb-1e77-4c09-b542-b4d345abdcbd.JPG",
-            "317573b0-ce3a-49aa-b215-748347a57d06.JPG", "3362db6f-f045-4f08-9765-6f3ed32bb274.JPG",
-            "36b02c67-9932-4975-94e2-3b0d0744aef7.JPG", "3ac6053a-160a-4c09-90d5-42eee84c30f1.JPG",
-            "3ae73f89-285a-4008-acd8-8fe096777a64.JPG", "3e7a5903-136e-4afe-a2f2-f1e94670cfaa.JPG",
-            "4021533b-7352-4d8d-9468-0c556eee3e7f.JPG", "40521838-e266-4927-af51-f141791d2032.JPG",
-            "41d58e02-2e10-4860-b1a6-02c9fad1f51d.JPG", "43ec3056-79b6-42bf-8ec7-322a8ec00684.JPG",
-            "44f0bfff-2612-4b00-a7ee-dd1878368b93.JPG", "45aeb585-01b3-4d2c-aaf3-3e964ad6ee8f.JPG",
-            "4e17bde9-9805-48e0-a19e-36338e7238d8.JPG", "4edcbd59-c798-4223-bdf4-fd2d1dca3c23.JPG",
-            "4f633849-e6b9-4505-9190-a98c4a608ce1.JPG", "54f47916-2dc7-4fc1-a7f9-d3870513f386.JPG",
-            "56c613db-2ad2-480a-8428-91d17167b924.JPG", "60344747-9d34-4cfd-a36d-acd86c871f94.JPG",
-            "62a9a184-2230-4f03-b793-5e6333c62dab.JPG", "64ae1c0c-8603-450b-b484-b2f733299365.JPG",
-            "657edb6f-9634-420c-a7f5-125bce7ffbda.JPG", "6a2f3080-5be1-4488-a250-630b54bd882d.JPG",
-            "6b09c6cc-5262-4947-8ac1-7bb9a9acc6e3.JPG", "6e02e969-9388-4501-b95c-2d7ad132e093.JPG",
-            "71b24baf-5753-48fc-9b45-a19f4bc0dda2.JPG", "71b4cf37-26cf-4ab4-be9a-3e589dfb3de5.JPG",
-            "74d16f5d-ebcd-4160-b3e8-1ad1e68c6a6f.JPG", "75b11fe2-09a8-4219-8309-11ce46fdd812.JPG",
-            "7ccb1e35-6834-483f-b823-2e3037c62fb6.JPG", "7e445258-d1e4-4b74-80a8-9902db80f3d3.JPG",
-            "82ab2e16-3f3b-42ac-a5dc-f2dc2c3da096.JPG", "8c65652c-34f4-487a-a00a-d907348ecef8.JPG",
-            "8e97ed15-4895-4901-b8f3-eda679b2634b.JPG", "8fbfa547-f146-400f-bb7c-18e5a4e938ef.JPG",
-            "927c8a50-978d-4dec-baf8-b8c68108ae48.JPG", "92acf84e-586d-4ca9-b2da-0c118b04f82c.JPG",
-            "96ddcc93-c722-4979-a5a5-c7870c7aa0c2.JPG", "9b7eae87-0670-4522-9578-fedbcceb3ed4.JPG",
-            "9dc994f9-15af-4c01-96e7-fcd6cc1901f1.JPG", "9f620b52-1143-4ac9-8bef-bcb35549ee79.JPG",
-            "a01c8d0d-7f13-4f35-a84f-f88fe36863fe.JPG", "a61e33aa-9ffa-4ec7-83f6-7fb29d26ce1e.JPG",
-            "a644406f-35b6-4295-a055-63f0a6076745.JPG", "a65bd74e-ae6e-4e4d-9a0f-196399202610.JPG",
-            "a77ffcdf-b8ae-45d4-aedc-8c555da9a7e2.JPG", "a7a6af99-4b09-4edd-a02a-4e1908244045.JPG",
-            "ad179230-2f41-4a23-8661-b04177784e9d.JPG", "b20c9c2a-1d7a-4cab-827d-9650c415c7e9.JPG",
-            "b4ec7a4e-69b5-4551-8222-14b5dfafbcbf.JPG", "b86374e4-91ea-4805-979f-f323bbfc1197.JPG",
-            "ba498dcc-7524-4902-9a0f-bdb6b996e582.JPG", "c0efccd7-e3b8-4ff8-b1d9-7491e6ba3978.JPG",
-            "c141fdd1-579b-4afa-9319-37d790ce0851.JPG", "c3fd006a-7e40-4fec-8c9e-c28da31a8b94.JPG",
-            "c59cf77a-5f0c-4f0c-97a1-14a6ae3f8287.JPG", "c6cc6b2f-f5a5-42cb-901f-e3ef5ad8f745.JPG",
-            "c789809d-1206-4941-98a5-f21d386f2409.JPG", "cc98fdab-e812-4643-9f10-c1cd6e9e4985.JPG",
-            "cda7837e-740d-4126-af59-fc945bd75fed.JPG", "d36e6dec-e067-43f1-8657-982a02efdd11.JPG",
-            "d5c9e530-efc2-4755-b2b6-2e9bfd8edde2.JPG", "d6273c64-fb8f-4231-ba39-b399fc259730.JPG",
-            "e29658bd-46e6-4fd5-8831-f69456c5552a.JPG", "e47fbbca-0172-473d-b62e-99277290f61b.JPG",
-            "e4814452-09ce-4c51-8e6c-2678d6a8235e.JPG", "e6a4d606-ad0d-4eef-a1f7-214428cba5f1.JPG",
-            "e702ea1f-0bbb-4f17-9703-9528f368a961.JPG", "e7ae201c-deeb-48c1-834d-9fac8a9ca928.JPG",
-            "efbdd358-d9c9-4bee-a85d-c4a67fd8cc7c.JPG", "f1685c0a-21e2-4c3c-9f80-548f8c4eecf9.JPG",
-            "f1eaf719-d82f-4565-9d20-118ff6370085.JPG", "f31160f5-554d-4d21-b367-7565d46102e8.JPG",
-            "f5248f13-1a58-462b-b547-5afb7d72f350.JPG", "f9db863f-b703-4ad1-a200-e81380425457.JPG",
-            "fa41f4fe-f440-40f3-9c3d-eb8d1bf68f8c.JPG", "ffbafe47-c9b1-4567-bbd0-9afa95882728.JPG"
-        ];
-        
-        // Optimización: carga instantánea de todas las imágenes
-        function loadAllImages() {
-            const galleryContainer = document.querySelector('#galeria .grid');
-            if (!galleryContainer) return;
-            
-            imageNames.forEach((name, idx) => {
-                const card = document.createElement('div');
-                card.className = 'tattoo-card';
-                
-                // Crear imagen con carga instantánea
-                const img = document.createElement('img');
-                img.src = `Morla tattos/${name}`;
-                img.alt = `Trabajo de tatuaje - Morla Tattoo #${idx+1}`;
-                // Sin lazy loading para carga instantánea
-                img.width = 400;
-                img.height = 340;
-                img.className = 'gallery-img';
-                
-                card.appendChild(img);
-                galleryContainer.appendChild(card);
-            });
-            
-            // Aplicar efectos inmediatamente
-            attachModalToCards();
-        }
-        
-        function buildGallery() {
-            const galleryContainer = document.querySelector('#galeria .grid');
-            if (!galleryContainer) return;
-            galleryContainer.innerHTML = '';
-            loadAllImages();
-        }
-        
-        function attachModalToCards() {
-            document.querySelectorAll('.tattoo-card').forEach(card => {
-                card.addEventListener('click', modalHandler);
-            });
-        }
-
-        let currentModal = null;
-        function closeModal() {
-            if (currentModal) {
-                currentModal.remove();
-                currentModal = null;
-            }
-        }
-
-        function modalHandler(e) {
-            const img = this.querySelector('img');
-            if (!img) return;
-            closeModal(); // cerrar si había uno abierto
-            const modal = document.createElement('div');
-            modal.className = 'modal';
-            modal.innerHTML = `
-                <div class="modal-close" aria-label="Cerrar"><i class="fas fa-times"></i></div>
-                <img src="${img.src}" alt="${img.alt}">
-            `;
-            document.body.appendChild(modal);
-            currentModal = modal;
-            // Cerrar al hacer clic en el fondo
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) closeModal();
-            });
-            // Cerrar con tecla Escape
-            const escHandler = (e) => {
-                if (e.key === 'Escape') {
-                    closeModal();
-                    document.removeEventListener('keydown', escHandler);
-                }
-            };
-            document.addEventListener('keydown', escHandler);
-            // Al cerrar el modal, remover el listener
-            const observerModal = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    if (mutation.removedNodes.length && mutation.removedNodes[0] === modal) {
-                        document.removeEventListener('keydown', escHandler);
-                        observerModal.disconnect();
-                        if (currentModal === modal) currentModal = null;
-                    }
-                });
-            });
-            observerModal.observe(document.body, { childList: true });
-        }
-
-        // ---- Botón volver arriba ----
-        const scrollBtn = document.getElementById('scrollTopBtn');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                scrollBtn.classList.add('visible');
-            } else {
-                scrollBtn.classList.remove('visible');
-            }
-        });
-        scrollBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // ---- Inicializar galería y observadores ----
-        buildGallery();
-
-        // Asegurar que el email se muestra de forma legible y con enlace (opcional)
-        const emailSpan = document.getElementById('emailSpan');
-        if (emailSpan) {
-            const emailText = emailSpan.innerText;
-            const cleanEmail = emailText.replace(' [at] ', '@').replace(' ', '');
-            emailSpan.innerHTML = `<a href="mailto:${cleanEmail}">${cleanEmail}</a>`;
-        }
-    </script>
+    <script src="main.js" defer></script>
 </body>
 </html>

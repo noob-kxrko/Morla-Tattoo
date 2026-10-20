@@ -453,7 +453,6 @@ const StatsCounter = (() => {
    ============================================================ */
 const Booking = (() => {
     const C = {
-        api:        '/api/citas',   // función serverless (ver api/citas.js)
         whatsapp:   '18298667998',
         minHours:   48,             // las citas cierran 48 h antes
         maxDesigns: 2,
@@ -481,6 +480,7 @@ const Booking = (() => {
     };
 
     function slotState(key, iso, h) {
+        if (!st.online) return 'unavailable';
         if (st.taken.has(key)) return 'taken';
         if (startOf(iso, h) - Date.now() < C.minHours * 36e5) return 'closed';
         return 'open';
@@ -511,7 +511,9 @@ const Booking = (() => {
             b.disabled = state !== 'open';
             b.setAttribute('aria-pressed', String(st.slot === key));
             b.innerHTML = `<span>${range(h)}</span>` +
-                (state === 'taken' ? '<small>Ocupada</small>' : state === 'closed' ? '<small>Cerrada</small>' : '');
+                (state === 'taken' ? '<small>Ocupada</small>' :
+                    state === 'closed' ? '<small>Cerrada</small>' :
+                    state === 'unavailable' ? '<small>No disponible</small>' : '');
             b.addEventListener('click', () => { st.slot = key; renderSlots(); });
             slotGrid.appendChild(b);
         });
@@ -520,11 +522,16 @@ const Booking = (() => {
 
     async function loadTaken() {
         try {
-            const r = await fetch(C.api, { cache: 'no-store' });
-            if (!r.ok) throw new Error();
-            st.taken = new Set((await r.json()).taken || []);
+            if (!window.sb) throw new Error('Supabase no está configurado.');
+            const { data, error } = await window.sb.rpc('horas_ocupadas');
+            if (error) throw error;
+            st.taken = new Set((data || []).map(({ fecha, hora }) => keyOf(fecha, hora)));
             st.online = true;
-        } catch { st.online = false; }
+            showMsg('');
+        } catch (error) {
+            st.online = false;
+            showMsg(`No se pudieron consultar las citas: ${error.message || 'revisa la conexión con Supabase.'}`);
+        }
         if (st.slot && st.taken.has(st.slot)) st.slot = null;
         renderSlots();
     }
@@ -589,22 +596,20 @@ const Booking = (() => {
 
     function waLink(text) { return `https://wa.me/${C.whatsapp}?text=${encodeURIComponent(text)}`; }
 
-    function showDone({ code, offline }) {
+    function showDone({ code, uploadIssue = false }) {
         const name = $('bkName').value.trim();
         const when = label(st.slot);
-        const text = offline
-            ? `Hola Morla, quiero reservar la promo 2x1500 el ${when}. Soy ${name}, mi WhatsApp es ${$('bkPhone').value.trim()}. Te envío mis diseños por aquí.`
+        const text = uploadIssue
+            ? `Hola Morla, soy ${name}. Mi solicitud ${code} para el ${when} quedó registrada, pero la web no pudo adjuntar mis diseños. Te los envío por aquí.`
             : `Hola Morla, soy ${name}. Solicité la cita ${code} para el ${when}. Quedo pendiente de la aprobación de mi diseño.`;
-        done.innerHTML = offline
-            ? `<h3>Casi listo, ${name.split(' ')[0]}</h3>
-               <p>No pudimos guardar tu cita en línea. Envíanos tu solicitud por WhatsApp junto con tus diseños y Morla la confirma por ahí.</p>
-               <p class="done-when">${when}</p>`
-            : `<h3>Solicitud recibida, ${name.split(' ')[0]}</h3>
-               <p class="done-when">${when}</p>
-               <p>Código de tu cita: <strong class="done-code">${code}</strong></p>
-               <p>Tu hora ya está apartada. Morla revisará tu diseño y te confirmará por WhatsApp. Si necesita cambios, te escribirá.</p>`;
+        done.innerHTML = `<h3>${uploadIssue ? 'Solicitud registrada' : 'Solicitud recibida'}, ${name.split(' ')[0]}</h3>
+            <p class="done-when">${when}</p>
+            <p>Código de tu cita: <strong class="done-code">${code}</strong></p>
+            <p>${uploadIssue
+                ? 'Tu hora quedó apartada, pero no pudimos guardar los diseños. Escríbele a Morla por WhatsApp y envíaselos manualmente.'
+                : 'Tu hora ya está apartada. Morla revisará tu diseño y te confirmará por WhatsApp. Si necesita cambios, te escribirá.'}</p>`;
         done.insertAdjacentHTML('beforeend',
-            `<a class="btn-primary" href="${waLink(text)}" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i> ${offline ? 'Enviar por WhatsApp' : 'Escribir a Morla'}</a>`);
+            `<a class="btn-primary" href="${waLink(text)}" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i> Escribir a Morla</a>`);
         form.hidden = true;
         done.hidden = false;
         done.focus();
@@ -616,35 +621,87 @@ const Booking = (() => {
         if (st.busy) return;
         const problem = validate();
         if (problem) { showMsg(problem[0]); problem[1].focus?.(); return; }
+        if (!st.online || !window.sb) {
+            showMsg('No se puede reservar ahora porque no hay conexión con el sistema de citas. Inténtalo de nuevo más tarde.');
+            return;
+        }
         showMsg('');
         const btn = $('bookingSubmit');
         st.busy = true; btn.disabled = true; btn.textContent = 'Enviando…';
+        let appointment;
         try {
-            const r = await fetch(C.api, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    slot: st.slot,
-                    name: $('bkName').value.trim(),
-                    phone: $('bkPhone').value.trim(),
-                    zone: $('bkZone').value.trim(),
-                    notes: $('bkNotes').value.trim(),
-                    designs: st.designs,
-                    hp: $('bkHp').value,
-                }),
+            const date = st.slot.slice(0, 10);
+            const hour = st.slot.slice(11);
+            const { data, error } = await window.sb.rpc('crear_cita', {
+                p_fecha: date,
+                p_hora: Number(hour),
+                p_nombre: $('bkName').value.trim(),
+                p_telefono: $('bkPhone').value.trim(),
+                p_zona: $('bkZone').value.trim(),
+                p_notas: $('bkNotes').value.trim() || null,
+                p_hp: $('bkHp').value,
             });
-            if (r.status === 409) {
-                st.slot = null; await loadTaken();
-                showMsg('Esa hora acaba de ser tomada. Elige otra, tus datos y diseños siguen aquí.');
-                slotGrid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else if (r.ok) {
-                showDone({ code: (await r.json()).code });
-            } else {
-                const err = await r.json().catch(() => ({}));
-                showMsg(err.error || 'No pudimos enviar tu solicitud. Intenta de nuevo.');
+            if (error) {
+                if (error.message.includes('HORA_OCUPADA')) {
+                    st.slot = null;
+                    await loadTaken();
+                    showMsg('Esa hora acaba de ser tomada. Elige otra; tus datos y diseños siguen aquí.');
+                    slotGrid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else if (error.message.includes('HORA_CERRADA')) {
+                    st.slot = null;
+                    renderSlots();
+                    showMsg('Esa hora cerró porque faltan menos de 48 horas. Elige otra.');
+                } else if (error.message.includes('PROMO_CERRADA')) {
+                    showMsg('La promoción ya está cerrada y no acepta nuevas citas.');
+                } else if (error.message.includes('LIMITE_TELEFONO')) {
+                    showMsg('Ese número ya alcanzó el límite de citas para esta promoción.');
+                } else {
+                    showMsg(`No se pudo guardar la cita: ${error.message}`);
+                }
+                return;
             }
-        } catch {
-            showDone({ offline: true });   // sin servidor: se cierra por WhatsApp
+            appointment = data;
+            if (!appointment?.codigo) {
+                showMsg('Supabase no devolvió el código de la cita. No se pudo confirmar el registro.');
+                return;
+            }
+            if (appointment.codigo === 'MT-00000') {
+                showDone({ code: appointment.codigo });
+                return;
+            }
+
+            if (!appointment.id) {
+                showMsg('La cita se creó sin devolver su identificador. Contacta a Morla antes de volver a intentarlo.');
+                return;
+            }
+
+            try {
+                const paths = [];
+                for (let i = 0; i < st.designs.length; i++) {
+                    const image = await fetch(st.designs[i]).then(response => response.blob());
+                    const path = `${appointment.id}/${i + 1}.jpg`;
+                    const { error: uploadError } = await window.sb.storage
+                        .from('disenos')
+                        .upload(path, image, { contentType: 'image/jpeg', upsert: false });
+                    if (uploadError) throw uploadError;
+                    paths.push(path);
+                }
+                const { error: attachError } = await window.sb.rpc('adjuntar_disenos', {
+                    p_id: appointment.id,
+                    p_paths: paths,
+                });
+                if (attachError) throw attachError;
+                st.taken.add(st.slot);
+                renderSlots();
+                showDone({ code: appointment.codigo });
+            } catch (uploadError) {
+                st.taken.add(st.slot);
+                renderSlots();
+                showDone({ code: appointment.codigo, uploadIssue: true });
+                console.error('La cita se guardó, pero no se pudieron adjuntar los diseños.', uploadError);
+            }
+        } catch (error) {
+            showMsg(`No se pudo enviar la cita a Supabase: ${error.message || 'revisa tu conexión e inténtalo de nuevo.'}`);
         } finally {
             st.busy = false; btn.disabled = false; btn.textContent = 'Solicitar mi cita';
         }

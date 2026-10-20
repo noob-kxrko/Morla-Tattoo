@@ -13,11 +13,12 @@ create table if not exists public.admins (
 );
 alter table public.admins enable row level security;
 
--- ⚠️ CAMBIA ESTOS CORREOS por los reales (el de tu hermano y el tuyo).
--- Deben ser los mismos con los que crearás los usuarios en Authentication.
+-- Este correo debe coincidir con el usuario creado en Authentication.
+delete from public.admins
+where lower(email) in ('correo_de_tu_hermano@gmail.com', 'tu_correo@gmail.com');
+
 insert into public.admins (email) values
-    ('correo_de_tu_hermano@gmail.com'),
-    ('tu_correo@gmail.com')
+    ('jhonmaikolgilbert@gmail.com')
 on conflict do nothing;
 
 create or replace function public.es_admin()

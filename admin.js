@@ -77,10 +77,11 @@
         if (error) { flash('No se pudieron cargar las citas: ' + error.message, true); return; }
         citas = data;
         if (conf.data) cfg = conf.data;
-        const paths = citas.flatMap(c => c.disenos);
+        const paths = citas.flatMap(c => Array.isArray(c.disenos) ? c.disenos : []);
         urls = {};
         if (paths.length) {
-            const { data: signed } = await sb.storage.from('disenos').createSignedUrls(paths, 3600);
+            const { data: signed, error: signedError } = await sb.storage.from('disenos').createSignedUrls(paths, 3600);
+            if (signedError) flash('No se pudieron cargar los diseños: ' + signedError.message, true);
             (signed || []).forEach(s => { if (s.signedUrl) urls[s.path] = s.signedUrl; });
         }
         fillFilters(); render();
@@ -106,25 +107,35 @@
     /* ---------- Pintar ---------- */
     function card(c) {
         const blocked = c.estado === 'bloqueada';
-        const thumbs = c.disenos.map((p, i) => urls[p]
+        const designs = Array.isArray(c.disenos) ? c.disenos : [];
+        const thumbs = designs.map((p, i) => urls[p]
             ? `<button class="ad-thumb" type="button" data-view="${esc(urls[p])}" aria-label="Ver diseño ${i + 1}"><img src="${esc(urls[p])}" alt="Diseño ${i + 1}" loading="lazy"></button>` : '').join('');
-        const wa = `https://wa.me/${waNum(c.telefono)}?text=${encodeURIComponent(waText(c))}`;
+        const phone = String(c.telefono || '');
+        const name = String(c.nombre || 'Cliente sin nombre');
+        const wa = `https://wa.me/${waNum(phone)}?text=${encodeURIComponent(waText({ ...c, nombre: name }))}`;
         const btn = (act, text, cls = '') => `<button class="ad-act ${cls}" type="button" data-act="${act}" data-id="${c.id}">${text}</button>`;
         const actions = blocked
-            ? btn('cancelada', 'Desbloquear hora')
-            : [btn('aprobada', 'Aprobar', 'ad-act--ok'), btn('cambios', 'Pedir cambios'), btn('rechazada', 'Rechazar', 'ad-act--no'),
-               btn('completada', 'Completada'), btn('cancelada', 'Cancelar'),
+            ? btn('cancelada', 'Liberar hora')
+            : [c.estado === 'pendiente' ? btn('aprobada', 'Aceptar cita', 'ad-act--ok') : '',
+               c.estado === 'pendiente' ? btn('rechazada', 'Denegar cita', 'ad-act--no') : '',
+               btn('cambios', 'Pedir cambios'), btn('completada', 'Marcar completada'), btn('cancelada', 'Cancelar cita'),
                `<a class="ad-act ad-act--wa" href="${wa}" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i> Avisar</a>`].join('');
+        const created = c.created_at
+            ? new Date(c.created_at).toLocaleString('es-DO', { dateStyle: 'medium', timeStyle: 'short' })
+            : '';
         return `<article class="ad-card" data-estado="${c.estado}">
-            <div class="ad-row"><span class="ad-when">${esc(range(c.hora))}</span><span class="ad-badge">${ESTADOS[c.estado]}</span></div>
+            <div class="ad-row"><span class="ad-when">${esc(range(Number(c.hora)))}</span><span class="ad-badge">${esc(ESTADOS[c.estado] || c.estado || 'Sin estado')}</span></div>
             ${blocked ? '<p class="ad-meta">Hora bloqueada por Morla.</p>' : `
             <div class="ad-meta">
-                <span><strong>${esc(c.nombre)}</strong> · <a href="tel:+${waNum(c.telefono)}">${esc(fmtTel(c.telefono))}</a></span>
-                <span>${esc(c.zona)}</span>
+                <span><strong>Cliente:</strong> ${esc(name)}</span>
+                <span><strong>WhatsApp:</strong> <a href="tel:+${esc(waNum(phone))}">${esc(fmtTel(phone))}</a></span>
+                <span><strong>Fecha y hora:</strong> ${esc(when(c))}</span>
+                <span><strong>Zona y tamaño:</strong> ${esc(c.zona || 'No especificado')}</span>
                 ${c.notas ? `<span>“${esc(c.notas)}”</span>` : ''}
-                <span>Código ${esc(c.codigo)}</span>
+                <span><strong>Código:</strong> ${esc(c.codigo || 'No asignado')}</span>
+                ${created ? `<span><strong>Solicitud recibida:</strong> ${esc(created)}</span>` : ''}
             </div>
-            ${thumbs ? `<div class="ad-designs">${thumbs}</div>` : '<p class="ad-nodesign">Sin diseño subido: pídelo por WhatsApp.</p>'}`}
+            ${designs.length ? (thumbs ? `<div class="ad-designs">${thumbs}</div>` : '<p class="ad-nodesign">Los diseños están registrados, pero no se pudieron cargar.</p>') : '<p class="ad-nodesign">Sin diseño subido: pídelo por WhatsApp.</p>'}`}
             <div class="ad-actions">${actions}</div>
             ${blocked ? '' : `<textarea class="ad-note" rows="2" placeholder="Nota interna (solo la ves tú)" data-note="${c.id}">${esc(c.nota_interna || '')}</textarea>`}
         </article>`;

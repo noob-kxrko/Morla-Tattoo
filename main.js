@@ -464,7 +464,7 @@ const Booking = (() => {
         ],
         hours: [8, 9, 10, 11, 12, 13, 14, 16, 17, 18],   // igual que el flyer (sin 3 PM)
     };
-    const st = { day: C.days[0].iso, slot: null, taken: new Set(), designs: [], online: true, busy: false };
+    const st = { day: C.days[0].iso, slot: null, taken: new Set(), designs: [], online: false, busy: false };
     const $ = (id) => document.getElementById(id);
     let form, dayTabs, slotGrid, summary, msg, preview, done;
 
@@ -596,18 +596,130 @@ const Booking = (() => {
 
     function waLink(text) { return `https://wa.me/${C.whatsapp}?text=${encodeURIComponent(text)}`; }
 
+    function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, char => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+        }[char]));
+    }
+
+    function downloadProof({ code, name, slot, zone }) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1080;
+        canvas.height = 1350;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+            showMsg('No se pudo crear el comprobante. Toma una captura de esta pantalla y guarda tu código.');
+            return;
+        }
+
+        const background = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        background.addColorStop(0, '#160006');
+        background.addColorStop(0.55, '#050505');
+        background.addColorStop(1, '#26000a');
+        ctx.fillStyle = background;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = '#dc143c';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(32, 32, canvas.width - 64, canvas.height - 64);
+        ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(52, 52, canvas.width - 104, canvas.height - 104);
+
+        const logo = document.querySelector('.brand-logo');
+        if (logo?.complete && logo.naturalWidth > 0) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(540, 175, 74, 0, Math.PI * 2);
+            ctx.clip();
+            ctx.drawImage(logo, 466, 101, 148, 148);
+            ctx.restore();
+        } else {
+            ctx.fillStyle = '#dc143c';
+            ctx.beginPath();
+            ctx.arc(540, 175, 68, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 58px Georgia';
+            ctx.textAlign = 'center';
+            ctx.fillText('M', 540, 196);
+        }
+
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 54px Georgia';
+        ctx.fillText('MORLA TATTOO', 540, 300);
+        ctx.fillStyle = '#ff4766';
+        ctx.font = '600 25px Arial';
+        ctx.fillText('COMPROBANTE DE SOLICITUD DE CITA', 540, 355);
+
+        ctx.fillStyle = 'rgba(255,255,255,0.06)';
+        ctx.fillRect(100, 420, 880, 255);
+        ctx.strokeStyle = 'rgba(220,20,60,0.7)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(100, 420, 880, 255);
+        ctx.fillStyle = '#d4d4d4';
+        ctx.font = '600 24px Arial';
+        ctx.fillText('CÓDIGO DE RESERVA', 540, 480);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 82px Arial';
+        ctx.fillText(code, 540, 585);
+
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#ff4766';
+        ctx.font = '600 23px Arial';
+        ctx.fillText('CLIENTE', 120, 755);
+        ctx.fillText('FECHA Y HORA', 120, 875);
+        ctx.fillText('ZONA / TAMAÑO', 120, 995);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '600 35px Arial';
+        ctx.fillText(name.slice(0, 38), 120, 805);
+        ctx.fillText(label(slot), 120, 925);
+        ctx.fillText(zone.slice(0, 42), 120, 1045);
+
+        ctx.fillStyle = 'rgba(220,20,60,0.18)';
+        ctx.fillRect(100, 1100, 880, 105);
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.font = 'bold 26px Arial';
+        ctx.fillText('ESTADO: PENDIENTE DE APROBACIÓN', 540, 1145);
+        ctx.fillStyle = '#d4d4d4';
+        ctx.font = '22px Arial';
+        ctx.fillText('Presenta este comprobante y tu código al llegar al estudio.', 540, 1185);
+        ctx.fillText('La cita se confirma cuando Morla te escriba por WhatsApp.', 540, 1230);
+
+        const link = document.createElement('a');
+        link.download = `Morla-Tattoo-${code}.png`;
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+    }
+
     function showDone({ code, uploadIssue = false }) {
         const name = $('bkName').value.trim();
         const when = label(st.slot);
         const text = uploadIssue
             ? `Hola Morla, soy ${name}. Mi solicitud ${code} para el ${when} quedó registrada, pero la web no pudo adjuntar mis diseños. Te los envío por aquí.`
             : `Hola Morla, soy ${name}. Solicité la cita ${code} para el ${when}. Quedo pendiente de la aprobación de mi diseño.`;
-        done.innerHTML = `<h3>${uploadIssue ? 'Solicitud registrada' : 'Solicitud recibida'}, ${name.split(' ')[0]}</h3>
+        done.innerHTML = `<h3>${uploadIssue ? 'Solicitud registrada' : 'Solicitud recibida'}, ${escapeHtml(name.split(' ')[0])}</h3>
             <p class="done-when">${when}</p>
-            <p>Código de tu cita: <strong class="done-code">${code}</strong></p>
+            <p>Código de tu cita: <strong class="done-code">${escapeHtml(code)}</strong></p>
             <p>${uploadIssue
                 ? 'Tu hora quedó apartada, pero no pudimos guardar los diseños. Escríbele a Morla por WhatsApp y envíaselos manualmente.'
                 : 'Tu hora ya está apartada. Morla revisará tu diseño y te confirmará por WhatsApp. Si necesita cambios, te escribirá.'}</p>`;
+        const downloadButton = document.createElement('button');
+        downloadButton.id = 'downloadBookingProof';
+        downloadButton.type = 'button';
+        downloadButton.className = 'btn-secondary';
+        downloadButton.textContent = 'Descargar comprobante';
+        downloadButton.addEventListener('click', () => downloadProof({
+            code,
+            name,
+            slot: st.slot,
+            zone: $('bkZone').value.trim(),
+        }));
+        done.appendChild(downloadButton);
         done.insertAdjacentHTML('beforeend',
             `<a class="btn-primary" href="${waLink(text)}" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i> Escribir a Morla</a>`);
         form.hidden = true;
